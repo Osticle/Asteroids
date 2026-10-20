@@ -9,6 +9,6 @@ wheels/
 # Virtual environments
 .venv
 
-# User-created files
+# User-created files 
 game_state.jsonl
 game_events.jsonl
