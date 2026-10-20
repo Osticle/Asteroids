@@ -34,7 +34,7 @@ def main():
     AsteroidField.containers = (updatable)
     Shot.containers = (shots, updatable, drawable)
 
-    # create player
+    # create player and asteroid field
     player_pos_x = SCREEN_WIDTH / 2
     player_pos_y = SCREEN_HEIGHT / 2
     player = Player(player_pos_x, player_pos_y)
@@ -51,7 +51,7 @@ def main():
         screen.fill("black")
         updatable.update(dt)
         
-        # Check collision
+        # Check player collision
         for _asteroid in asteroids:
             if _asteroid.collides_with(player):
                 log_event("player_hit")
@@ -59,6 +59,16 @@ def main():
                 sys.exit()
             else:
                 continue
+        
+        # Check bullet collision
+        for _asteroid in asteroids:
+            for _shot in shots:
+                if _asteroid.collides_with(_shot):
+                    log_event("asteroid_shot")
+                    pygame.sprite.Sprite.kill(_shot)
+                    _asteroid.split()
+                else:
+                    continue
 
 
         
